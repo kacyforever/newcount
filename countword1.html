@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Character Count-by 경민</title>
+  <link href="https://countwordsfree.com/Content/css/cwf?v=9r7-6A8I_Xk9AK3w0oYjelLkB0vT9FDnl73gL5Lar281" rel="stylesheet"/>
+
+    <script>
+        var onloadCallback = function () {
+            grecaptcha.render('validate_user',
+                {
+                    'sitekey': $("#validate_user").data('sitekey')
+                });
+        };
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit">
+    </script>
+
+</head>
+<body>
+
+
+<h1>Free Online Text Word Counter</h1>
+
+<!--업로드 열기-->
+                    <div class="modal fade" id="uploadDlg" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">파일을 업로드하세요.</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        Supported document formats: MS WORD (DOC, DOCX), TXT, PDF, EPUB, EXCEL, HTML, MSF EXCEL(XLS, XLSX), ODT, CSS, XML, JSON
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12 sourcefile">
+                        No File Selected
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="fileUpload btn btn-primary btn-sm">
+                            <span>Choose File</span>
+                            <div id="upload_disk"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">취소하기</button>
+                                  <button type="button" class="btn btn-primary btn-load">실행하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br><br>
+<!--끝-->
+
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="row">
+
+                    <div class="col-sm-12 upload-btns-area">
+                        <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Load Text <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" class="load-disk" title="load text for analysis from disk">From Disk</a></li>
+                            </ul>
+                        </div>
+<br><br>
+            <div class="col-sm-12 col-md-8 main-zone">
+                <div class="col-lg-12 col-sm-12 text-stat text-center">
+                                <div>[&nbsp;<b>Words:</b> <span id="words-count">0</span>, <b>Characters:</b> <span id="symbols-count">0</span>&nbsp;]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <button type="button" class="btn btn-lg btn-danger btn-clear">Clear</button></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 controls-area">
+                                    <textarea id="analyze-text" style="width: 100%; background-color: #fff; resize: vertical;" data-autosize-on="true" data-role="none" spellcheck="false" class="form-control" rows="30" placeholder="Type, copy/paste or load any document content into this area..."></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+    <!-- Javascript -->
+    <script src="https://countwordsfree.com/scripts/jq?v=VIJoYltz7F3nKVgAdcqJLeNQ6qgCyOLvvXzzGDGlOZw1"></script>
+
+    <script src="https://countwordsfree.com/scripts/cwf?v=Y6GKYBJaoawRhlEmSIkPgvtz6fvgo0YfJoSJf9Q0kV41"></script>
+
+
+
+
+        <script id="general-panel" data-view="general-view" type="text/x-jsrender">
+            {{for stats}}
+            <tr class="active">
+                <th scope="row">Characters</th>
+                <td><span data-id="symbols-count">{{:symbols}}</span></td>
+            </tr>
+            <tr>
+                <th scope="row">Lines</th>
+                <td><span data-id="lines-count">{{:lines}}</span></td>
+            </tr>
+            <tr class="active">
+                <th scope="row">Words</th>
+                <td><span data-id="words-count">{{:words}}</span></td>
+            </tr>
+            <tr>
+                <th scope="row">Sentences</th>
+                <td><span data-id="sentences-count">{{:sentences}}</span></td>
+            </tr>
+
+            <tr class="active">
+                <th scope="row">Paragraphs</th>
+                <td><span data-id="paragraphs-count">{{:paragraphs}}</span></td>
+            </tr>
+
+            <tr>
+                <th scope="row">Numerals</th>
+                <td><span data-id="numbers-count">{{:numbers}}</span></td>
+            </tr>
+
+            <tr class="active">
+                <th scope="row">Punctuation</th>
+                <td><span data-id="punctuation-count">{{:punctuation}}</span></td>
+            </tr>
+
+            <tr>
+                <th scope="row">Average Read Time</th>
+                <td><span data-id="punctuation-count">{{:readtime}}</span></td>
+            </tr>
+
+            <tr class="active">
+                <th scope="row">Average Spell Time</th>
+                <td><span data-id="punctuation-count">{{:spelltime}}</span></td>
+            </tr>
+            {{/for}}
+        </script>
+
+        <script id="words-panel" data-view="words-view" type="text/x-jsrender">
+            {{if stats != null}}
+            {{for stats}}
+            <tr class="{{:#getIndex()%2 ? '' : 'active'}}">
+                <th scope="row" class="index px1">{{:#getIndex() + 1}}</th>
+                <th class="proc50">{{:word}}</th>
+                <td>{{:count}}</td>
+                <td>{{:percentage}} %</td>
+                <td>{{:symbols}}</td>
+            </tr>
+            {{/for}}
+            {{else}}
+            <tr>
+                <th scope="row"></th>
+                <td colspan="3">
+                    No Data
+                </td>
+            </tr>
+            {{/if}}
+        </script>
+
+        <script id="phrases-panel" data-view="phrases-view" type="text/x-jsrender">
+            {{for stats}}
+            <tr class="{{:#getIndex()%2 ? '' : 'active'}}">
+                <th scope="row" class="index px1">{{:#getIndex() + 1}}</th>
+                <th class="proc50">{{:phrase}}</th>
+                <td>{{:count}}</td>
+            </tr>
+            {{/for}}
+
+            {{if stats == null || stats.length == 0}}
+            <tr>
+                <th scope="row"></th>
+                <td colspan="2">
+                    No Data
+                </td>
+            </tr>
+            {{/if}}
+        </script>
+
+
+</body>
+
+</html>
